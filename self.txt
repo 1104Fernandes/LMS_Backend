@@ -1,0 +1,21 @@
+try {
+                $user->save();
+                $token = Auth::login($user);
+                foreach ($self as $tmp) {
+                    $ass = new selfAssessment();
+                    if ($tmp['self_assesment_value'] > 7 && $tmp['self_assesment_value'] < 10) {
+                        //$ass->difficult_id = $tmp['difficult_id'];
+                        $ass->difficult_id = 3;
+                    } else if ($tmp['self_assesment_value'] > 4 && $tmp['self_assesment_value'] < 7) {
+                        $ass->difficult_id = 2;
+                    } else if ($tmp['self_assesment_value'] >= 0 && $tmp['self_assesment_value'] < 4) {
+                        $ass->difficult_id = 1;
+                    }
+                    $ass->user_id = $user->user_id;
+                    $ass->category_id = $tmp['category_id'];
+
+                    $ass->save();
+                }
+            } catch (\Exception $e) {
+                echo ($e);
+            }
